@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Waktu pembuatan: 28 Agu 2022 pada 17.58
+-- Waktu pembuatan: 05 Sep 2022 pada 04.45
 -- Versi server: 10.4.24-MariaDB
 -- Versi PHP: 8.1.6
 
@@ -45,8 +45,9 @@ CREATE TABLE `failed_jobs` (
 
 CREATE TABLE `items` (
   `id` bigint(20) UNSIGNED NOT NULL,
+  `type_id` bigint(20) UNSIGNED NOT NULL DEFAULT 1,
   `name` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
-  `type` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `qty` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
   `price` int(11) NOT NULL,
   `created_at` timestamp NULL DEFAULT NULL,
   `updated_at` timestamp NULL DEFAULT NULL
@@ -56,9 +57,11 @@ CREATE TABLE `items` (
 -- Dumping data untuk tabel `items`
 --
 
-INSERT INTO `items` (`id`, `name`, `type`, `price`, `created_at`, `updated_at`) VALUES
-(1, 'Advan ced', 'smartphone', 2000000, NULL, NULL),
-(2, 'asus seri sekian', 'laptop', 8500000, NULL, NULL);
+INSERT INTO `items` (`id`, `type_id`, `name`, `qty`, `price`, `created_at`, `updated_at`) VALUES
+(1, 1, 'Realme C15', '2', 2000000, NULL, NULL),
+(2, 1, 'Realme C10', '2', 1800000, NULL, NULL),
+(3, 3, 'canon ip2770', '2', 750000, NULL, NULL),
+(4, 4, 'logitech m221', '4', 250000, NULL, NULL);
 
 -- --------------------------------------------------------
 
@@ -81,7 +84,9 @@ INSERT INTO `migrations` (`id`, `migration`, `batch`) VALUES
 (2, '2014_10_12_100000_create_password_resets_table', 1),
 (3, '2019_08_19_000000_create_failed_jobs_table', 1),
 (4, '2019_12_14_000001_create_personal_access_tokens_table', 1),
-(5, '2022_08_28_074710_create_items_table', 1);
+(5, '2022_08_28_074710_create_items_table', 1),
+(6, '2022_09_05_012801_create_types_table', 1),
+(7, '2022_09_06_025353_add_item_type_id_to_items_table', 1);
 
 -- --------------------------------------------------------
 
@@ -117,6 +122,30 @@ CREATE TABLE `personal_access_tokens` (
 -- --------------------------------------------------------
 
 --
+-- Struktur dari tabel `type`
+--
+
+CREATE TABLE `type` (
+  `id` bigint(20) UNSIGNED NOT NULL,
+  `name` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `description` text COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `created_at` timestamp NULL DEFAULT NULL,
+  `updated_at` timestamp NULL DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+--
+-- Dumping data untuk tabel `type`
+--
+
+INSERT INTO `type` (`id`, `name`, `description`, `created_at`, `updated_at`) VALUES
+(1, 'Hape', 'sebuah hape ', NULL, NULL),
+(2, 'laptop', 'sebuah laptop', NULL, NULL),
+(3, 'Printer', 'Sebuah printer', NULL, NULL),
+(4, 'mouse', 'sebuah mouse', NULL, NULL);
+
+-- --------------------------------------------------------
+
+--
 -- Struktur dari tabel `users`
 --
 
@@ -146,7 +175,8 @@ ALTER TABLE `failed_jobs`
 -- Indeks untuk tabel `items`
 --
 ALTER TABLE `items`
-  ADD PRIMARY KEY (`id`);
+  ADD PRIMARY KEY (`id`),
+  ADD KEY `items_type_id_foreign` (`type_id`);
 
 --
 -- Indeks untuk tabel `migrations`
@@ -169,6 +199,12 @@ ALTER TABLE `personal_access_tokens`
   ADD KEY `personal_access_tokens_tokenable_type_tokenable_id_index` (`tokenable_type`,`tokenable_id`);
 
 --
+-- Indeks untuk tabel `type`
+--
+ALTER TABLE `type`
+  ADD PRIMARY KEY (`id`);
+
+--
 -- Indeks untuk tabel `users`
 --
 ALTER TABLE `users`
@@ -189,13 +225,13 @@ ALTER TABLE `failed_jobs`
 -- AUTO_INCREMENT untuk tabel `items`
 --
 ALTER TABLE `items`
-  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
 
 --
 -- AUTO_INCREMENT untuk tabel `migrations`
 --
 ALTER TABLE `migrations`
-  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
+  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
 
 --
 -- AUTO_INCREMENT untuk tabel `personal_access_tokens`
@@ -204,10 +240,26 @@ ALTER TABLE `personal_access_tokens`
   MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT;
 
 --
+-- AUTO_INCREMENT untuk tabel `type`
+--
+ALTER TABLE `type`
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
+
+--
 -- AUTO_INCREMENT untuk tabel `users`
 --
 ALTER TABLE `users`
   MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT;
+
+--
+-- Ketidakleluasaan untuk tabel pelimpahan (Dumped Tables)
+--
+
+--
+-- Ketidakleluasaan untuk tabel `items`
+--
+ALTER TABLE `items`
+  ADD CONSTRAINT `items_type_id_foreign` FOREIGN KEY (`type_id`) REFERENCES `type` (`id`) ON UPDATE CASCADE;
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;

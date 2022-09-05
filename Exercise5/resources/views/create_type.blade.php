@@ -18,27 +18,21 @@
         </ul>
     </div>
 @endif
-    <form action= "/store" method="post">
+    <form action= "/store_type" method="post">
         
         @csrf
-        <h1>Form Tambah Barang</h1>
+        <h1>Form Tambah tipe Barang</h1>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0/dist/js/bootstrap.bundle.min.js" integrity="sha384-A3rJD856KowSb7dwlZdYEkO39Gagi7vIsF0jrRAoQmDKKtQBHUuLZ9AsSv4jD4Xa" crossorigin="anonymous"></script>
     <div class="mb-3">
         <label for="name" class="form-label">Name</label>
         <input type="text" class="form-control" id="name" name="name" >
       </div>
+    
     <div class="mb-3">
-        <label for="type" class="form-label">Quantity</label>
-        <input type="text" class="form-control" id="type" name="qty" >
+        <label for="description" class="form-label">Description</label>
+        <input type="text" class="form-control" id="description" name="description" >
       </div>
-    <div class="mb-3">
-        <label for="price" class="form-label">Price</label>
-        <input type="number" class="form-control" id="price" name="price" >
-      </div>
-      <div class="mb-3">
-        <label for="type" class="form-label">Type</label>
-        <input type="text" class="form-control" id="type_id" name="type_id" >
-      </div>
+      
     {{-- <button class="btn btn-primary" type="submit">Add</button> --}}
     <div class="mb-3">
         <button type="reset" onclick="return confirm('Reset Form?')" style="margin: 350px;margin-top:0px; width: 100px;background-color: rgba(244, 44, 44, 0.829);font-size: 14px;height: 35px;padding: 0px;" value="Reset">Reset</button>
