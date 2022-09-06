@@ -18,7 +18,7 @@
         </ul>
     </div>
 @endif
-    <form action= "/store" method="post">
+    <form action= "/store" method="post" enctype="multipart/form-data">
         
         @csrf
         <h1>Form Tambah Barang</h1>
@@ -39,6 +39,11 @@
         <label for="type" class="form-label">Type</label>
         <input type="text" class="form-control" id="type_id" name="type_id" >
       </div>
+      <div class="mb-3">
+        <label for="formFile" class="form-label">Images</label>
+        <input class="form-control" type="file" id="formFile" name="image">
+      </div>
+
     {{-- <button class="btn btn-primary" type="submit">Add</button> --}}
     <div class="mb-3">
         <button type="reset" onclick="return confirm('Reset Form?')" style="margin: 350px;margin-top:0px; width: 100px;background-color: rgba(244, 44, 44, 0.829);font-size: 14px;height: 35px;padding: 0px;" value="Reset">Reset</button>

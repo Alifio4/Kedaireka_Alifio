@@ -16,9 +16,10 @@ return new class extends Migration
         Schema::create('items', function (Blueprint $table) {
             $table->id();
             $table->string('name');
-            // $table->string('type');
+            
             $table->string('qty');
             $table->integer('price');
+            $table->string('image')->nullable();
             $table->timestamps();
         });
     }

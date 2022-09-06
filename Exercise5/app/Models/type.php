@@ -10,4 +10,8 @@ class type extends Model
     use HasFactory;
     protected $table = 'type';
     protected $fillable = ["name","description"];
+
+    public function items(){
+        return $this -> hasMany(item::class, "type_id", "id");
+    }
 }

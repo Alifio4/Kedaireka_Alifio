@@ -51,13 +51,27 @@ class ItemController extends Controller
             'price' => 'required|max:8',
             'type_id' => 'required|max:8'
         ]);
-        DB::table('items')->insert([
-			'name' => $request->name,
-			'qty' => $request->qty,
-			'price' => $request->price,
-            "type_id"=> $request ->type_id 
-			
-		]);
+        
+        if($request->hasFile('image'))
+        {
+            $destination_path = 'public/assets/images/products';
+            $image = $request->file('image');
+            $image_name = $image->getClientOriginalName();
+            $path = $request -> file('image')->storeAs($destination_path,$image_name);
+
+            DB::table('items')->insert([
+                'name' => $request->name,
+                'qty' => $request->qty,
+                'price' => $request->price,
+                "type_id"=> $request ->type_id,
+                'image'=> $image_name
+                
+                
+            ]);
+
+        }
+        
+        
 		
 		return redirect('/');
     }

@@ -91,6 +91,6 @@
 
 			<a class="btn btn-primary" href="/create_type" 
 		role="button">Add Item Type</a>
-
+	
   </body>
 </html>
